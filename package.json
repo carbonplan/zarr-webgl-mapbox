@@ -1,0 +1,46 @@
+{
+  "name": "simple-site",
+  "version": "1.0.0",
+  "description": "testing zarr and webgl integrations for mapping",
+  "main": "index.js",
+  "scripts": {
+    "dev": "NODE_ENV=development next -p 4000",
+    "build": "next build",
+    "start": "next start",
+    "format": "prettier --write '*.js' '{components,pages}/**/*.js'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carbonplan/simple-site.git"
+  },
+  "keywords": [
+    "next",
+    "theme-ui",
+    "react"
+  ],
+  "author": "freeman-lab",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/carbonplan/simple-site/issues"
+  },
+  "homepage": "https://github.com/carbonplan/simple-site#readme",
+  "devDependencies": {
+    "prettier": "2.2.1"
+  },
+  "dependencies": {
+    "@carbonplan/components": "^9.2.0",
+    "@carbonplan/theme": "^6.0.1",
+    "angle-normals": "^1.0.0",
+    "bunny": "^1.0.1",
+    "gl-mat4": "^1.2.0",
+    "mapbox-gl": "^1.13.1",
+    "next": "^11.0.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "regl": "^2.1.0",
+    "theme-ui": "^0.10.0",
+    "xhr": "^2.6.0",
+    "xhr-request": "^1.1.0",
+    "zarr-js": "^1.0.0"
+  }
+}
