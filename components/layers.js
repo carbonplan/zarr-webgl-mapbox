@@ -4,13 +4,12 @@ import { useMapbox } from './mapbox'
 import style from './style'
 import Bunny from '../components/bunny'
 
-const Material = ({display}) => {
+const Layers = ({display}) => {
 	const ref = useRef()
 	const { map } = useMapbox()
 
 	useEffect(() => {
 		map.on('zoom', () => {
-			console.log(map.getZoom())
 			ref.current.brightness = map.getZoom() / 5
 		})
 
@@ -37,4 +36,4 @@ const Material = ({display}) => {
 	)
 }
 
-export default Material
+export default Layers

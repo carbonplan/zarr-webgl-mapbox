@@ -26,15 +26,14 @@ const Index = () => {
   } = useThemeUI()
 
   useEffect(() => {
-
     zarr(xhr).open(remote + bucket + prefix + '0', (err, get) => {
-      get([0,0], (err, array) => {
+      get([0, 0], (err, array) => {
         console.log(array)
       })
     })
 
-    const regl = _regl({container: reglContainer.current})
-    
+    const regl = _regl({ container: reglContainer.current })
+
     const drawBunny = regl({
       vert: `
       precision mediump float;
@@ -56,7 +55,7 @@ const Index = () => {
       // this converts the vertices of the mesh into the position attribute
       attributes: {
         position: bunny.positions,
-        normal: normals(bunny.cells, bunny.positions)
+        normal: normals(bunny.cells, bunny.positions),
       },
 
       // and this converts the faces of the mesh into elements
@@ -64,29 +63,33 @@ const Index = () => {
 
       uniforms: {
         model: mat4.identity([]),
-        view: ({tick}) => {
+        view: ({ tick }) => {
           const t = 0.01 * tick
-          return mat4.lookAt([],
+          return mat4.lookAt(
+            [],
             [30 * Math.cos(t), 2.5, 30 * Math.sin(t)],
             [0, 2.5, 0],
-            [0, 1, 0])
+            [0, 1, 0]
+          )
         },
-        projection: ({viewportWidth, viewportHeight}) =>
-          mat4.perspective([],
+        projection: ({ viewportWidth, viewportHeight }) =>
+          mat4.perspective(
+            [],
             Math.PI / 4,
             viewportWidth / viewportHeight,
             0.01,
-            1000)
-      }
+            1000
+          ),
+      },
     })
 
-    regl.frame(({time}) => {
+    regl.frame(({ time }) => {
       console.log('1')
       console.log(time)
       drawBunny()
     })
 
-    regl.frame(({time}) => {
+    regl.frame(({ time }) => {
       console.log('2')
       console.log(time)
       //drawBunny()
@@ -99,36 +102,34 @@ const Index = () => {
       zoom: 6.79,
     })
 
-  return function cleanup() {
+    return function cleanup() {
       map.remove()
       regl.destroy()
     }
   }, [])
 
   return (
-    <Box sx={{position: 'relative', width: '100vw', height: '100vh'}}>
-    
-    
-    <Box
-      ref={reglContainer}
-      sx={{
-        position: 'absolute',
-        width: '100%',
-        height: '100%',
-        pointerEvents: 'none'
-      }}
-    />
-    <Box
-      ref={mapContainer}
-      sx={{
-        position: 'absolute',
-        width: '100%',
-        height: '100%',
-        'canvas.mapboxgl-canvas:focus': {
-          outline: 'none',
-        },
-      }}
-    />
+    <Box sx={{ position: 'relative', width: '100vw', height: '100vh' }}>
+      <Box
+        ref={reglContainer}
+        sx={{
+          position: 'absolute',
+          width: '100%',
+          height: '100%',
+          pointerEvents: 'none',
+        }}
+      />
+      <Box
+        ref={mapContainer}
+        sx={{
+          position: 'absolute',
+          width: '100%',
+          height: '100%',
+          'canvas.mapboxgl-canvas:focus': {
+            outline: 'none',
+          },
+        }}
+      />
     </Box>
   )
 }

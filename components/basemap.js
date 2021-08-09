@@ -19,7 +19,7 @@ const Basemap = () => {
           'source-layer': 'ne_10m_land',
           layout: { visibility: 'visible' },
           paint: {
-           'line-blur': 0.4,
+            'line-blur': 0.4,
             'line-color': primary,
             'line-opacity': 1,
             'line-width': 0.8,
@@ -31,7 +31,7 @@ const Basemap = () => {
 
   useEffect(() => {
     if (map.getLayer('land')) {
-      map.setPaintProperty('land', 'line-color', primary) 
+      map.setPaintProperty('land', 'line-color', primary)
     }
   }, [colors])
 
