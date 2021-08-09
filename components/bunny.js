@@ -74,6 +74,10 @@ class Bunny extends Component {
     })
   }
 
+  componentWillUnmount() {
+    this.draw = () => {}
+  }
+
   render() {
     return null
   }

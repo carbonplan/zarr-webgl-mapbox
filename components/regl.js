@@ -1,12 +1,4 @@
-import {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  Component,
-} from 'react'
+import { createContext, useContext, Component } from 'react'
 import { Box } from 'theme-ui'
 import _regl from 'regl'
 
@@ -36,7 +28,7 @@ class Regl extends Component {
   }
 
   componentWillUnmount() {
-    this.state.regl.destroy()
+    if (this.state.regl) this.state.regl.destroy()
   }
 
   render() {

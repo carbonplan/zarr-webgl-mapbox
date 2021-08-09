@@ -28,7 +28,7 @@ class Regl extends Component {
   }
 
   componentWillUnmount() {
-    this.map.remove()
+    if (this.state.map) this.state.map.remove()
   }
 
   render() {

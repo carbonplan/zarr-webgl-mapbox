@@ -9,6 +9,7 @@ import style from '../components/style'
 
 const Index = () => {
   const [display, setDisplay] = useState(false)
+  const [brightness, setBrightness] = useState(0.5)
 
   return (
     <Box
@@ -22,11 +23,11 @@ const Index = () => {
         sx={{ position: 'absolute' }}
         style={style}
         zoom={3}
-        center={[-122.99, 40.02]}
+        center={[-122.99, 39.02]}
       >
         <Basemap />
         <Regl sx={{ position: 'absolute', pointerEvents: 'none' }}>
-          <Layers display={display} />
+          <Layers display={display} brightness={brightness} />
         </Regl>
       </Mapbox>
       <Toggle
@@ -35,6 +36,14 @@ const Index = () => {
         onClick={() => setDisplay((prev) => !prev)}
       />
       <Dimmer sx={{ position: 'absolute', bottom: 20, right: 20 }} />
+      <Slider
+        min={0}
+        max={1}
+        step={0.01}
+        sx={{ width: '200px', position: 'absolute', top: 20, left: 20 }}
+        value={brightness}
+        onChange={(e) => setBrightness(parseFloat(e.target.value))}
+      />
     </Box>
   )
 }
