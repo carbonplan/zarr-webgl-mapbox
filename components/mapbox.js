@@ -8,7 +8,7 @@ export const useMapbox = () => {
   return useContext(MapboxContext)
 }
 
-class Regl extends Component {
+class Mapbox extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -53,4 +53,4 @@ class Regl extends Component {
   }
 }
 
-export default Regl
+export default Mapbox
