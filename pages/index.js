@@ -27,7 +27,11 @@ const Index = () => {
       >
         <Basemap />
         <Regl sx={{ position: 'absolute', pointerEvents: 'none' }}>
-          <Layers display={display} brightness={brightness} />
+          <Layers
+            display={display}
+            brightness={brightness}
+            setBrightness={setBrightness}
+          />
         </Regl>
       </Mapbox>
       <Toggle

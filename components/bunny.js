@@ -9,7 +9,7 @@ class Bunny extends Component {
 
   constructor(props) {
     super(props)
-    this.brightness = 1
+    this.brightness = this.props.brightness
     this.rendering = false
   }
 
@@ -48,7 +48,7 @@ class Bunny extends Component {
         brightness: regl.prop('brightness'),
         model: mat4.identity([]),
         view: ({ tick }) => {
-          const t = 0.5
+          const t = this.props.offset
           return mat4.lookAt(
             [],
             [30 * Math.cos(t), 2.5, 30 * Math.sin(t)],
@@ -68,10 +68,20 @@ class Bunny extends Component {
     })
 
     this.draw = () => drawBunny({ brightness: this.brightness })
+    this.draw()
 
-    regl.frame(({ time }) => {
-      if (this.rendering) this.draw()
+    this.renderedTick = 0
+    regl.frame(({ tick }) => {
+      this.tick = tick
     })
+  }
+
+  componentDidUpdate(prev) {
+    if (this.tick !== this.renderedTick) {
+      this.brightness = this.props.brightness
+      this.draw()
+      this.renderedTick = this.tick
+    }
   }
 
   componentWillUnmount() {

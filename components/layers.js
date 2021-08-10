@@ -4,39 +4,21 @@ import { useMapbox } from './mapbox'
 import style from './style'
 import Bunny from '../components/bunny'
 
-const Layers = ({ display, brightness }) => {
-  const ref = useRef()
+const Layers = ({ display, brightness, setBrightness }) => {
   const { map } = useMapbox()
 
   useEffect(() => {
     map.on('zoom', () => {
-      ref.current.brightness = map.getZoom() / 2
-    })
-
-    map.on('movestart', () => {
-      ref.current.rendering = true
-    })
-
-    map.on('moveend', () => {
-      ref.current.rendering = false
+      setBrightness(map.getZoom() / 2)
     })
   }, [map])
 
-  useEffect(() => {
-    if (display) {
-      ref.current.brightness = 0.5
-    } else {
-      ref.current.brightness = 0
-    }
-    ref.current.draw()
-  }, [display])
-
-  useEffect(() => {
-    ref.current.brightness = brightness
-    ref.current.draw()
-  }, [brightness])
-
-  return <Bunny ref={(el) => (ref.current = el)} />
+  return (
+    <>
+      <Bunny brightness={brightness} offset={1} />
+      <Bunny brightness={0.5} offset={0.1} />
+    </>
+  )
 }
 
 export default Layers
