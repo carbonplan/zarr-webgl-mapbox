@@ -9,7 +9,7 @@ import style from '../components/style'
 
 const Index = () => {
   const [display, setDisplay] = useState(false)
-  const [brightness, setBrightness] = useState(0.5)
+  const [brightness, setBrightness] = useState(1)
 
   return (
     <Box
@@ -22,7 +22,7 @@ const Index = () => {
       <Mapbox
         sx={{ position: 'absolute' }}
         style={style}
-        zoom={3}
+        zoom={0}
         center={[-122.99, 39.02]}
       >
         <Basemap />

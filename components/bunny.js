@@ -10,7 +10,6 @@ class Bunny extends Component {
   constructor(props) {
     super(props)
     this.brightness = this.props.brightness
-    this.rendering = false
   }
 
   componentDidMount() {
@@ -18,22 +17,22 @@ class Bunny extends Component {
 
     const drawBunny = regl({
       vert: `
-	    precision mediump float;
-	    attribute vec3 position, normal;
-	    uniform mat4 model, view, projection;
-	    varying vec3 vnormal;
-	    void main() {
-	      vnormal = normal;
-	      gl_Position = projection * view * model * vec4(position, 1);
-	    }`,
+      precision mediump float;
+      attribute vec3 position, normal;
+      uniform mat4 model, view, projection;
+      varying vec3 vnormal;
+      void main() {
+        vnormal = normal;
+        gl_Position = projection * view * model * vec4(position, 1);
+      }`,
 
       frag: `
-	    precision mediump float;
-	    varying vec3 vnormal;
-	    uniform float brightness;
-	    void main() {
-	      gl_FragColor = vec4(abs(vnormal) * brightness, 1.0);
-	    }`,
+      precision mediump float;
+      varying vec3 vnormal;
+      uniform float brightness;
+      void main() {
+        gl_FragColor = vec4(abs(vnormal) * brightness, 1.0);
+      }`,
 
       // this converts the vertices of the mesh into the position attribute
       attributes: {

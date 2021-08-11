@@ -2,6 +2,7 @@ import { Box } from 'theme-ui'
 import {
   createContext,
   useState,
+  useRef,
   useCallback,
   useEffect,
   useContext,
@@ -15,35 +16,36 @@ export const useMapbox = () => {
 }
 
 const Mapbox = ({ style, center, zoom, sx, children }) => {
-  const [map, setMap] = useState()
+  const map = useRef()
+  const [ready, setReady] = useState()
 
   const ref = useCallback((node) => {
     if (node !== null) {
-      const map = new mapboxgl.Map({
+      map.current = new mapboxgl.Map({
         container: node,
         style: style,
         center: center,
         zoom: zoom,
       })
-      setMap(map)
+      map.current.showTileBoundaries = true
+      setReady(true)
     }
   }, [])
 
   useEffect(() => {
     return () => {
-      if (map) map.remove()
+      if (map.current) map.current.remove()
     }
   }, [])
 
   return (
     <MapboxContext.Provider
       value={{
-        map: map,
+        map: map.current,
       }}
     >
-      <Box as='div' sx={{ width: '100%', height: '100%', ...sx }} ref={ref}>
-        {map && children}
-      </Box>
+      <Box as='div' sx={{ width: '100%', height: '100%', ...sx }} ref={ref} />
+      {ready && children}
     </MapboxContext.Provider>
   )
 }

@@ -1,4 +1,12 @@
-import { createContext, useContext, Component } from 'react'
+import {
+  createContext,
+  useCallback,
+  useState,
+  useEffect,
+  useContext,
+  useRef,
+  Component,
+} from 'react'
 import { Box } from 'theme-ui'
 import _regl from 'regl'
 
@@ -8,48 +16,36 @@ export const useRegl = () => {
   return useContext(ReglContext)
 }
 
-export const useFrame = (cb, state = true) => {
-  const { regl } = useContext(ReglContext)
-  regl.frame(cb)
-}
+const Regl = ({ sx, children }) => {
+  const regl = useRef()
+  const [ready, setReady] = useState(false)
 
-class Regl extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      regl: null,
+  const ref = useCallback((node) => {
+    if (node !== null) {
+      regl.current = _regl({
+        container: node,
+        extensions: ['OES_texture_float', 'OES_element_index_uint'],
+      })
+      setReady(true)
     }
-  }
+  }, [])
 
-  componentDidMount() {
-    let container = this.container
-    const regl = _regl({ container: container })
-    this.setState({ regl: regl })
-  }
+  useEffect(() => {
+    return () => {
+      if (regl.current) regl.current.destroy
+    }
+  })
 
-  componentWillUnmount() {
-    if (this.state.regl) this.state.regl.destroy()
-  }
-
-  render() {
-    const { regl } = this.state
-    const { children } = this.props
-
-    return (
-      <ReglContext.Provider
-        value={{
-          regl: regl,
-        }}
-      >
-        <Box
-          sx={{ width: '100%', height: '100%', ...this.props.sx }}
-          ref={(el) => (this.container = el)}
-        >
-          {regl && children}
-        </Box>
-      </ReglContext.Provider>
-    )
-  }
+  return (
+    <ReglContext.Provider
+      value={{
+        regl: regl.current,
+      }}
+    >
+      <Box sx={{ width: '100%', height: '100%', ...sx }} ref={ref} />
+      {ready && children}
+    </ReglContext.Provider>
+  )
 }
 
 export default Regl
