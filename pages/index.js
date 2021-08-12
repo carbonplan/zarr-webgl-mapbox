@@ -7,7 +7,7 @@ import Basemap from '../components/basemap'
 import style from '../components/style'
 
 const Index = () => {
-  const [display, setDisplay] = useState(false)
+  const [display, setDisplay] = useState(true)
   const [brightness, setBrightness] = useState(1)
 
   return (
@@ -19,7 +19,7 @@ const Index = () => {
         overflowY: 'hidden',
       }}
     >
-      <Canvas style={style} zoom={0} center={[-122.99, 39.02]}>
+      <Canvas style={style} zoom={0} center={[30, 0]} debug={true}>
         <Basemap />
         <Layers display={display} brightness={brightness} />
       </Canvas>

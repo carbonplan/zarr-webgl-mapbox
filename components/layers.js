@@ -10,13 +10,14 @@ const Layers = ({ display, brightness }) => {
     map.on('render', () => {
       ref.current.draw()
     })
-  }, [])
+  }, [map])
 
   return (
     <>
       <Raster
         ref={ref}
         brightness={brightness}
+        display={display}
         center={center}
         zoom={zoom}
         maxZoom={5}
