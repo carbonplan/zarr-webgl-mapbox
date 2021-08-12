@@ -16,15 +16,12 @@ const Index = () => {
         position: 'relative',
         width: '100vw',
         height: '100vh',
+        overflowY: 'hidden',
       }}
     >
       <Canvas style={style} zoom={0} center={[-122.99, 39.02]}>
         <Basemap />
-        <Layers
-          display={display}
-          brightness={brightness}
-          setBrightness={setBrightness}
-        />
+        <Layers display={display} brightness={brightness} />
       </Canvas>
       <Toggle
         sx={{ position: 'absolute', top: 20, right: 20 }}

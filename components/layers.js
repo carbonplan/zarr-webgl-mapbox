@@ -1,9 +1,9 @@
 import { useRef, useEffect } from 'react'
-import { useMapbox, useControls, Raster } from '../lib'
+import { useCanvas, useControls, Raster } from '../lib'
 
 const Layers = ({ display, brightness }) => {
   const ref = useRef()
-  const { map } = useMapbox()
+  const { map } = useCanvas()
   const { center, zoom } = useControls()
 
   useEffect(() => {
