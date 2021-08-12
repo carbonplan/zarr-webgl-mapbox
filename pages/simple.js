@@ -1,14 +1,15 @@
 import { useState } from 'react'
 import { Box } from 'theme-ui'
 import { Slider, Dimmer, Toggle } from '@carbonplan/components'
-import { Canvas } from '../lib'
+import Mapbox from '../components/mapbox'
+import Regl, { useRegl } from '../components/regl'
 import Layers from '../components/layers'
 import Basemap from '../components/basemap'
 import style from '../components/style'
 
 const Index = () => {
   const [display, setDisplay] = useState(false)
-  const [brightness, setBrightness] = useState(2)
+  const [brightness, setBrightness] = useState(1)
 
   return (
     <Box
@@ -18,14 +19,21 @@ const Index = () => {
         height: '100vh',
       }}
     >
-      <Canvas style={style} zoom={0} center={[-122.99, 39.02]}>
+      <Mapbox
+        sx={{ position: 'absolute' }}
+        style={style}
+        zoom={0}
+        center={[-122.99, 39.02]}
+      >
         <Basemap />
-        <Layers
-          display={display}
-          brightness={brightness}
-          setBrightness={setBrightness}
-        />
-      </Canvas>
+        <Regl sx={{ position: 'absolute', pointerEvents: 'none' }}>
+          <Layers
+            display={display}
+            brightness={brightness}
+            setBrightness={setBrightness}
+          />
+        </Regl>
+      </Mapbox>
       <Toggle
         sx={{ position: 'absolute', top: 20, right: 20 }}
         value={display}

@@ -1,26 +1,12 @@
-import { useRef, useEffect, useLayoutEffect, useState } from 'react'
-import { useFrame } from './regl'
-import { useMapbox } from './mapbox'
-import style from './style'
-import Raster from '../components/raster'
+import { useRef, useEffect } from 'react'
+import { useCanvas, useControls, Raster } from '../lib'
 
-const Layers = ({ display, brightness, setBrightness }) => {
-  const [zoom, setZoom] = useState(0)
-  const [center, setCenter] = useState()
+const Layers = ({ display, brightness }) => {
   const ref = useRef()
-  const { map } = useMapbox()
+  const { map } = useCanvas()
+  const { center, zoom } = useControls()
 
   useEffect(() => {
-    setZoom(map.getZoom())
-    setCenter(map.getCenter())
-    map.on('load', () => {
-      setZoom(map.getZoom())
-      setCenter(map.getCenter())
-    })
-    map.on('move', () => {
-      setCenter(map.getCenter())
-      setZoom(map.getZoom())
-    })
     map.on('render', () => {
       ref.current.draw()
     })
