@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
-import { useCanvas } from '../lib'
+import { useMapbox } from '../lib'
 import { useThemeUI } from 'theme-ui'
 
 const Basemap = () => {
-  const { map } = useCanvas()
+  const { map } = useMapbox()
   const {
     theme: { rawColors: colors },
   } = useThemeUI()

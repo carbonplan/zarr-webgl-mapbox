@@ -1,9 +1,10 @@
 import { useRef, useEffect } from 'react'
-import { useCanvas, useControls, Raster } from '../lib'
+import { useMapbox, useControls, Raster } from '../lib'
+import Basemap from './basemap'
 
 const Layers = ({ display, brightness }) => {
   const ref = useRef()
-  const { map } = useCanvas()
+  const { map } = useMapbox()
   const { center, zoom } = useControls()
 
   useEffect(() => {
@@ -14,6 +15,7 @@ const Layers = ({ display, brightness }) => {
 
   return (
     <>
+      <Basemap />
       <Raster
         ref={ref}
         brightness={brightness}

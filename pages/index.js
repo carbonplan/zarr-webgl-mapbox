@@ -3,7 +3,6 @@ import { Box } from 'theme-ui'
 import { Slider, Dimmer, Toggle } from '@carbonplan/components'
 import { Canvas } from '../lib'
 import Layers from '../components/layers'
-import Basemap from '../components/basemap'
 import style from '../components/style'
 
 const Index = () => {
@@ -11,16 +10,8 @@ const Index = () => {
   const [brightness, setBrightness] = useState(1)
 
   return (
-    <Box
-      sx={{
-        position: 'relative',
-        width: '100vw',
-        height: '100vh',
-        overflowY: 'hidden',
-      }}
-    >
+    <Box sx={{ position: 'absolute', top: 0, bottom: 0, width: '100%' }}>
       <Canvas style={style} zoom={0} center={[0, 0]} debug={true}>
-        <Basemap />
         <Layers display={display} brightness={brightness} />
       </Canvas>
       <Toggle
