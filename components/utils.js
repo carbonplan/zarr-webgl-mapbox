@@ -37,10 +37,11 @@ export const zoomToLevel = (zoom, maxZoom) => {
 
 export const getSiblings = (tile) => {
   let siblings = []
-  const delta = [-1, 0, 1]
+  const deltax = [-2, -1, 0, 1, 2]
+  const deltay = [-1, 0, 1]
   const max = Math.pow(2, tile[2]) - 1
-  delta.map((x) => {
-    delta.map((y) => {
+  deltax.map((x) => {
+    deltay.map((y) => {
       siblings.push(
         tileToKey([
           clip(tile[0] + x, 0, max),

@@ -65,6 +65,8 @@ class Raster extends Component {
                 camera: pointToCamera(center),
                 level: zoomToLevel(zoom, maxZoom),
                 value: regl.buffer(),
+                cached: false,
+                loading: false,
               }
             })
         })
@@ -111,6 +113,9 @@ class Raster extends Component {
       varying float fragValue;
       void main() {
         ${circlify}
+        if (fragValue < 0.0) {
+          discard; 
+        }
         gl_FragColor = vec4(brightness * fragValue / 20.0, 0.0, 0.0, 0.5);
         gl_FragColor.rgb *= gl_FragColor.a;
       }`,
@@ -177,10 +182,16 @@ class Raster extends Component {
       this.tiles[key].level = level
       this.tiles[key].camera = [tileFraction[0], tileFraction[1]]
       if (this.loaders[level]) {
-        // fetch tile (note: converting x/y to row column)
-        this.loaders[level]([tile[1], tile[0]], (err, chunk) => {
-          this.tiles[key].value(chunk)
-        })
+        if (!this.tiles[key].cached) {
+          if (!this.tiles[key].loading) {
+            this.tiles[key].loading = true
+            this.loaders[level]([tile[1], tile[0]], (err, chunk) => {
+              this.tiles[key].value(chunk)
+              this.tiles[key].cached = true
+              this.tiles[key].loading = false
+            })
+          }
+        }
       }
     })
   }

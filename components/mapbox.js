@@ -27,7 +27,7 @@ const Mapbox = ({ style, center, zoom, sx, children }) => {
         center: center,
         zoom: zoom,
       })
-      map.current.showTileBoundaries = true
+      map.current.showTileBoundaries = false
       setReady(true)
     }
   }, [])
