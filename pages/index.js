@@ -19,7 +19,7 @@ const Index = () => {
         overflowY: 'hidden',
       }}
     >
-      <Canvas style={style} zoom={0} center={[30, 0]} debug={true}>
+      <Canvas style={style} zoom={0} center={[0, 0]} debug={true}>
         <Basemap />
         <Layers display={display} brightness={brightness} />
       </Canvas>
