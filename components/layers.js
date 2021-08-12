@@ -1,21 +1,21 @@
 import { useRef, useEffect } from 'react'
-import { useCanvas, useControls, Raster } from '../lib'
+import { useMapbox, useControls, Raster } from '../lib'
 
 const Layers = ({ display, brightness }) => {
   const ref = useRef()
-  const { map } = useCanvas()
+  const { map } = useMapbox()
   const { center, zoom } = useControls()
 
   useEffect(() => {
     map.on('render', () => {
       ref.current.draw()
     })
-  }, [map])
+  }, [])
 
   return (
     <>
       <Raster
-        ref={(el) => (ref.current = el)}
+        ref={ref}
         brightness={brightness}
         center={center}
         zoom={zoom}

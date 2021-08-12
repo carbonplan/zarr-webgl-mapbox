@@ -8,7 +8,7 @@ import style from '../components/style'
 
 const Index = () => {
   const [display, setDisplay] = useState(false)
-  const [brightness, setBrightness] = useState(2)
+  const [brightness, setBrightness] = useState(1)
 
   return (
     <Box
