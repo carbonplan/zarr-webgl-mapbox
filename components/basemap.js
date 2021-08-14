@@ -25,7 +25,7 @@ const Basemap = () => {
         },
       })
     }
-  }, [map])
+  }, [])
 
   useEffect(() => {
     if (map.getLayer('land')) {
