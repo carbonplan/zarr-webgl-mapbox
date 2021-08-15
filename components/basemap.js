@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useMapbox } from '../lib'
+import { useMapbox } from '../lib/maps'
 import { useThemeUI } from 'theme-ui'
 
 const Basemap = () => {
