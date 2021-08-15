@@ -1,21 +1,38 @@
 import { useState } from 'react'
 import { Box } from 'theme-ui'
-import { Slider, Dimmer, Toggle, Meta } from '@carbonplan/components'
-import { Canvas } from '../lib'
-import Layers from '../components/layers'
+import { Slider, Dimmer, Toggle, Select, Meta } from '@carbonplan/components'
+import { Canvas, Raster } from '../lib/maps'
+import { useColormap } from '../lib/colormaps'
+import Basemap from '../components/basemap'
 import style from '../components/style'
 
 const Index = () => {
   const [display, setDisplay] = useState(true)
   const [opacity, setOpacity] = useState(1)
   const [clim, setClim] = useState([-20, 30])
+  const [colormapName, setColormapName] = useState('warm')
+  const colormap = useColormap(colormapName)
 
   return (
     <>
       <Meta />
       <Box sx={{ position: 'absolute', top: 0, bottom: 0, width: '100%' }}>
-        <Canvas style={style} zoom={2} center={[0, 0]} debug={false}>
-          <Layers display={display} opacity={opacity} clim={clim} />
+        <Canvas
+          style={style}
+          zoom={2}
+          center={[0, 0]}
+          debug={false}
+          extensions={['OES_texture_float', 'OES_element_index_uint']}
+        >
+          <Basemap />
+          <Raster
+            maxZoom={5}
+            size={128}
+            colormap={colormap}
+            clim={clim}
+            display={display}
+            opacity={opacity}
+          />
         </Canvas>
         <Toggle
           sx={{ position: 'absolute', top: 20, right: 20 }}
@@ -50,6 +67,18 @@ const Index = () => {
             setClim((prev) => [prev[0], parseFloat(e.target.value)])
           }
         />
+        <Select
+          onChange={(e) => setColormapName(e.target.value)}
+          defaultValue={'warm'}
+          sx={{ width: '200px', position: 'absolute', top: 80, left: 20 }}
+        >
+          <option>grays</option>
+          <option>reds</option>
+          <option>greens</option>
+          <option>teals</option>
+          <option>warm</option>
+          <option>cool</option>
+        </Select>
         <Dimmer
           sx={{ position: 'absolute', right: [13], bottom: [17, 17, 15, 15] }}
         />
