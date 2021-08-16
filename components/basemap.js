@@ -7,12 +7,12 @@ const Basemap = () => {
   const {
     theme: { rawColors: colors },
   } = useThemeUI()
-  const { primary, background } = colors
+  const { primary, background, muted, hinted } = colors
 
   useEffect(() => {
-    if (!map.getLayer('land')) {
+    if (!map.getLayer('land-line')) {
       map.addLayer({
-        id: 'land',
+        id: 'land-line',
         type: 'line',
         source: 'basemap',
         'source-layer': 'ne_10m_land',
@@ -21,15 +21,31 @@ const Basemap = () => {
           'line-blur': 0.4,
           'line-color': primary,
           'line-opacity': 1,
-          'line-width': 0.8,
+          'line-width': 1.5,
+        },
+      })
+    }
+    if (!map.getLayer('land-fill')) {
+      map.addLayer({
+        id: 'land-fill',
+        type: 'fill',
+        source: 'basemap',
+        'source-layer': 'ne_10m_land',
+        layout: { visibility: 'visible' },
+        paint: {
+          'fill-color': background,
+          'fill-opacity': 0,
         },
       })
     }
   }, [])
 
   useEffect(() => {
-    if (map.getLayer('land')) {
-      map.setPaintProperty('land', 'line-color', primary)
+    if (map.getLayer('land-line')) {
+      map.setPaintProperty('land-line', 'line-color', primary)
+    }
+    if (map.getLayer('land-fill')) {
+      map.setPaintProperty('land-fill', 'fill-color', background)
     }
   }, [colors])
 

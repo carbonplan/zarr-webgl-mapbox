@@ -10,7 +10,7 @@ const Index = () => {
   const [display, setDisplay] = useState(true)
   const [opacity, setOpacity] = useState(1)
   const [clim, setClim] = useState([-20, 30])
-  const [colormapName, setColormapName] = useState('warm')
+  const [colormapName, setColormapName] = useState('cool')
   const colormap = useColormap(colormapName)
 
   return (
@@ -32,6 +32,9 @@ const Index = () => {
             clim={clim}
             display={display}
             opacity={opacity}
+            source={
+              'https://carbonplan.blob.core.windows.net/carbonplan-scratch/zarr-mapbox-webgl/128/{z}'
+            }
           />
         </Canvas>
         <Toggle
@@ -50,7 +53,7 @@ const Index = () => {
         <Slider
           min={-20}
           max={30}
-          step={0.1}
+          step={1}
           sx={{ width: '200px', position: 'absolute', top: 40, left: 20 }}
           value={clim[0]}
           onChange={(e) =>
@@ -60,7 +63,7 @@ const Index = () => {
         <Slider
           min={-20}
           max={30}
-          step={0.1}
+          step={1}
           sx={{ width: '200px', position: 'absolute', top: 60, left: 20 }}
           value={clim[1]}
           onChange={(e) =>
@@ -69,7 +72,7 @@ const Index = () => {
         />
         <Select
           onChange={(e) => setColormapName(e.target.value)}
-          defaultValue={'warm'}
+          defaultValue={'cool'}
           sx={{ width: '200px', position: 'absolute', top: 80, left: 20 }}
         >
           <option>grays</option>
