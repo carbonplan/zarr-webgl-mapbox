@@ -10,7 +10,7 @@ const Index = () => {
   const [display, setDisplay] = useState(true)
   const [opacity, setOpacity] = useState(1)
   const [clim, setClim] = useState([-20, 30])
-  const [colormapName, setColormapName] = useState('cool')
+  const [colormapName, setColormapName] = useState('warm')
   const colormap = useColormap(colormapName)
 
   return (
@@ -72,7 +72,7 @@ const Index = () => {
         />
         <Select
           onChange={(e) => setColormapName(e.target.value)}
-          defaultValue={'cool'}
+          defaultValue={'warm'}
           sx={{ width: '200px', position: 'absolute', top: 80, left: 20 }}
         >
           <option>grays</option>
