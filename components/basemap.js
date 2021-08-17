@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useMapbox } from '../lib/maps'
 import { useThemeUI } from 'theme-ui'
 
-const Basemap = () => {
+const Basemap = ({ inverted }) => {
   const { map } = useMapbox()
   const {
     theme: { rawColors: colors },
@@ -34,7 +34,7 @@ const Basemap = () => {
         layout: { visibility: 'visible' },
         paint: {
           'fill-color': background,
-          'fill-opacity': 0,
+          'fill-opacity': inverted ? 1 : 0,
         },
       })
     }
