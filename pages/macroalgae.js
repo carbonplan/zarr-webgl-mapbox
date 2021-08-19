@@ -30,8 +30,8 @@ const sx = {
     fontSize: [2, 2, 2, 3],
   },
   description: {
-    fontSize: [1, 1, 1, 2]
-  }
+    fontSize: [1, 1, 1, 2],
+  },
 }
 
 const Parameter = ({ label, min, max, step, value, setValue, onChange }) => {
@@ -100,23 +100,28 @@ const Index = () => {
                   expanded ? 'translate(0px)' : 'translate(-121%)',
                   expanded ? 'translate(0px)' : 'translate(-126% + 20px)',
                   expanded ? 'translate(0px)' : 'translate(-100%)',
-                ]
+                ],
               }}
             >
-              <Box onClick={() => setExpanded(prev => !prev)} sx={{
-                bg: 'background', 
-                px: [2], 
-                pb: [1],
-                pt: ['2px'],
-                position: 'absolute',
-                right: '-87px', 
-                bottom: '50px', 
-                transform: 'rotate(-90deg)', 
-                cursor: 'pointer',
-                borderRight: ({ colors }) => `1px solid ${colors.muted}`,
-                borderBottom: ({ colors }) => `1px solid ${colors.muted}`,
-                borderLeft: ({ colors }) => `1px solid ${colors.muted}`,
-              }}>Controls</Box>
+              <Box
+                onClick={() => setExpanded((prev) => !prev)}
+                sx={{
+                  bg: 'background',
+                  px: [2],
+                  pb: [1],
+                  pt: ['2px'],
+                  position: 'absolute',
+                  right: '-87px',
+                  bottom: '50px',
+                  transform: 'rotate(-90deg)',
+                  cursor: 'pointer',
+                  borderRight: ({ colors }) => `1px solid ${colors.muted}`,
+                  borderBottom: ({ colors }) => `1px solid ${colors.muted}`,
+                  borderLeft: ({ colors }) => `1px solid ${colors.muted}`,
+                }}
+              >
+                Controls
+              </Box>
               <Box
                 sx={{
                   mx: [-4, -5, -5, -6],
@@ -141,9 +146,9 @@ const Index = () => {
                   borderRight: ({ colors }) => `1px solid ${colors.muted}`,
                 }}
               >
-                <Box sx={{mb: [4], ...sx.description}}>
-                This is an interactive web tool for mapping the potential of carbon removal
-                with macroalgae.
+                <Box sx={{ mb: [4], ...sx.description }}>
+                  This is an interactive web tool for mapping the potential of
+                  carbon removal with macroalgae.
                 </Box>
                 <Box sx={sx.heading}>Capital Costs</Box>
                 <Parameter
@@ -211,9 +216,22 @@ const Index = () => {
             </Box>
           </Column>
           <Column start={[3, 5, 8, 8]} width={3}>
-          <Box sx={{mt: [8], opacity: expanded ? 0 : 1, transition: 'opacity 0.3s', position: 'relative', display: 'block',zIndex: 1001, fontSize: [6, 7, 8, 9], letterSpacing: 'heading', fontFamily: 'heading', lineHeight: 'heading'}}>
-          Mapping macroalgae
-          </Box>
+            <Box
+              sx={{
+                mt: [8],
+                opacity: expanded ? 0 : 1,
+                transition: 'opacity 0.3s',
+                position: 'relative',
+                display: 'block',
+                zIndex: 1001,
+                fontSize: [6, 7, 8, 9],
+                letterSpacing: 'heading',
+                fontFamily: 'heading',
+                lineHeight: 'heading',
+              }}
+            >
+              Mapping macroalgae
+            </Box>
           </Column>
         </Row>
       </Container>
