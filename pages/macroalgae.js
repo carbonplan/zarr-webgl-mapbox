@@ -10,7 +10,7 @@ import {
   Row,
   Column,
   Guide,
-  Logo,
+  Header,
 } from '@carbonplan/components'
 import { Canvas, Raster } from '../lib/maps'
 import { useColormap } from '../lib/colormaps'
@@ -29,6 +29,9 @@ const sx = {
     letterSpacing: 'smallcaps',
     fontSize: [2, 2, 2, 3],
   },
+  description: {
+    fontSize: [1, 1, 1, 2]
+  }
 }
 
 const Parameter = ({ label, min, max, step, value, setValue, onChange }) => {
@@ -61,6 +64,7 @@ const Index = () => {
   const [opacity, setOpacity] = useState(1)
   const [clim, setClim] = useState([0, 5000])
   const [colormapName, setColormapName] = useState('cool')
+  const [expanded, setExpanded] = useState(true)
   const colormap = useColormap(colormapName)
   const [mode] = useColorMode()
 
@@ -76,7 +80,153 @@ const Index = () => {
       <Container>
         <Guide color='teal' />
       </Container>
-      <Box sx={{ position: 'absolute', top: 0, bottom: 0, width: '100%' }}>
+      <Box sx={{ position: 'absolute', top: 0, width: '100%', zIndex: 5000 }}>
+        <Container>
+          <Header />
+        </Container>
+      </Box>
+      <Container>
+        <Row>
+          <Column width={3} start={1}>
+            <Box
+              sx={{
+                position: 'relative',
+                display: 'block',
+                top: 0,
+                zIndex: 1000,
+                transition: 'transform 0.2s',
+                transform: [
+                  expanded ? 'translate(0px)' : 'translate(-100%)',
+                  expanded ? 'translate(0px)' : 'translate(-121%)',
+                  expanded ? 'translate(0px)' : 'translate(-126% + 20px)',
+                  expanded ? 'translate(0px)' : 'translate(-100%)',
+                ]
+              }}
+            >
+              <Box onClick={() => setExpanded(prev => !prev)} sx={{
+                bg: 'background', 
+                px: [2], 
+                pb: [1],
+                pt: ['2px'],
+                position: 'absolute',
+                right: '-87px', 
+                bottom: '50px', 
+                transform: 'rotate(-90deg)', 
+                cursor: 'pointer',
+                borderRight: ({ colors }) => `1px solid ${colors.muted}`,
+                borderBottom: ({ colors }) => `1px solid ${colors.muted}`,
+                borderLeft: ({ colors }) => `1px solid ${colors.muted}`,
+              }}>Controls</Box>
+              <Box
+                sx={{
+                  mx: [-4, -5, -5, -6],
+                  px: [4, 5, 5, 6],
+                  height: '56px',
+                  bg: 'background',
+                  borderRight: ({ colors }) => `1px solid ${colors.muted}`,
+                  borderBottom: ({ colors }) => `1px solid ${colors.muted}`,
+                }}
+              />
+              <Box
+                sx={{
+                  mx: [-4, -5, -5, -6],
+                  px: [4, 5, 5, 6],
+                  pb: [5],
+                  pt: [5],
+                  pointerEvents: 'all',
+                  bg: 'background',
+                  overflowY: 'scroll',
+                  maxHeight: 'calc(100vh - 56px)',
+                  minHeight: 'calc(100vh - 56px)',
+                  borderRight: ({ colors }) => `1px solid ${colors.muted}`,
+                }}
+              >
+                <Box sx={{mb: [4], ...sx.description}}>
+                This is an interactive web tool for mapping the potential of carbon removal
+                with macroalgae.
+                </Box>
+                <Box sx={sx.heading}>Capital Costs</Box>
+                <Parameter
+                  min={170630}
+                  max={969626}
+                  step={10}
+                  value={capex}
+                  setValue={setCapex}
+                  label={'Capex'}
+                />
+                <Parameter
+                  min={0.06}
+                  max={1.45}
+                  step={0.01}
+                  value={lineCost}
+                  setValue={setLineCost}
+                  label={'Line cost'}
+                />
+                <Box sx={{ mt: [3], ...sx.heading }}>Operating costs</Box>
+                <Parameter
+                  min={63004}
+                  max={69316}
+                  step={100}
+                  value={opex}
+                  setValue={setOpex}
+                  label={'Opex'}
+                />
+                <Parameter
+                  min={37706}
+                  max={119579}
+                  step={10}
+                  value={labor}
+                  setValue={setLabor}
+                  label={'Labor'}
+                />
+                <Box sx={{ mt: [3], ...sx.heading }}>Harvest costs</Box>
+                <Parameter
+                  min={124485}
+                  max={394780}
+                  step={100}
+                  value={harvestCost}
+                  setValue={setHarvestCost}
+                  label={'Harvest costs'}
+                />
+                <Box sx={{ mt: [3], ...sx.heading }}>Style</Box>
+                <Parameter
+                  min={0}
+                  max={1}
+                  step={0.01}
+                  value={opacity}
+                  setValue={setOpacity}
+                  label={'Opacity'}
+                />
+                <Parameter
+                  min={0}
+                  max={5000}
+                  step={0.1}
+                  value={clim[0]}
+                  onChange={(e) =>
+                    setClim((prev) => [parseFloat(e.target.value), prev[1]])
+                  }
+                  label={'Min color'}
+                />
+              </Box>
+            </Box>
+          </Column>
+          <Column start={[3, 5, 8, 8]} width={3}>
+          <Box sx={{mt: [8], opacity: expanded ? 0 : 1, transition: 'opacity 0.3s', position: 'relative', display: 'block',zIndex: 1001, fontSize: [6, 7, 8, 9], letterSpacing: 'heading', fontFamily: 'heading', lineHeight: 'heading'}}>
+          Mapping macroalgae
+          </Box>
+          </Column>
+        </Row>
+      </Container>
+      <Box
+        sx={{
+          position: 'absolute',
+          top: 0,
+          bottom: 0,
+          width: '100%',
+          maxWidth: '1920px',
+          ml: [0, 0, 0, 'calc((100vw - 1920px)/2)'],
+        }}
+      >
         <Canvas
           style={style}
           zoom={2}
@@ -165,108 +315,6 @@ const Index = () => {
               `}
           />
         </Canvas>
-        <Container sx={{ position: 'absolute', top: 0 }}>
-          <Logo sx={{ pt: ['12px'] }} />
-        </Container>
-        <Container
-          sx={{
-            position: 'absolute',
-            top: 86,
-            pointerEvents: 'none',
-            zIndex: 1000,
-          }}
-        >
-          <Row>
-            <Column
-              width={3}
-              start={1}
-              sx={{
-                ml: [-5],
-                mr: [-5],
-                px: [5],
-                py: [5],
-                pointerEvents: 'all',
-                bg: 'background',
-                opacity: 0.9,
-                maxHeight: 'calc(100vh - 172px)',
-                overflow: 'scroll',
-              }}
-            >
-              <Box sx={sx.heading}>Capital Costs</Box>
-              <Parameter
-                min={170630}
-                max={969626}
-                step={10}
-                value={capex}
-                setValue={setCapex}
-                label={'Capex'}
-              />
-              <Parameter
-                min={0.06}
-                max={1.45}
-                step={0.01}
-                value={lineCost}
-                setValue={setLineCost}
-                label={'Line cost'}
-              />
-              <Box sx={{ mt: [3], ...sx.heading }}>Operating costs</Box>
-              <Parameter
-                min={63004}
-                max={69316}
-                step={100}
-                value={opex}
-                setValue={setOpex}
-                label={'Opex'}
-              />
-              <Parameter
-                min={37706}
-                max={119579}
-                step={10}
-                value={labor}
-                setValue={setLabor}
-                label={'Labor'}
-              />
-              <Box sx={{ mt: [3], ...sx.heading }}>Harvest costs</Box>
-              <Parameter
-                min={124485}
-                max={394780}
-                step={100}
-                value={harvestCost}
-                setValue={setHarvestCost}
-                label={'Harvest costs'}
-              />
-              <Box sx={{ mt: [3], ...sx.heading }}>Style</Box>
-              <Parameter
-                min={0}
-                max={1}
-                step={0.01}
-                value={opacity}
-                setValue={setOpacity}
-                label={'Opacity'}
-              />
-              <Parameter
-                min={0}
-                max={5000}
-                step={0.1}
-                value={clim[0]}
-                onChange={(e) =>
-                  setClim((prev) => [parseFloat(e.target.value), prev[1]])
-                }
-                label={'Min color'}
-              />
-              <Parameter
-                min={0}
-                max={5000}
-                step={0.1}
-                value={clim[1]}
-                onChange={(e) =>
-                  setClim((prev) => [prev[0], parseFloat(e.target.value)])
-                }
-                label={'Max color'}
-              />
-            </Column>
-          </Row>
-        </Container>
         <Dimmer
           sx={{ position: 'absolute', right: [13], bottom: [17, 17, 15, 15] }}
         />
