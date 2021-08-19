@@ -132,7 +132,8 @@ const Index = () => {
                   px: [4, 5, 5, 6],
                   height: '56px',
                   bg: 'background',
-                  borderRight: ({ colors }) => `1px solid ${colors.muted}`,
+                  borderRight: ({ colors }) =>
+                    `${expanded ? 1 : 0}px solid ${colors.muted}`,
                   borderBottom: ({ colors }) =>
                     `${expanded ? 1 : 0}px solid ${colors.muted}`,
                   transition: 'border 0.2s',
@@ -148,7 +149,9 @@ const Index = () => {
                   overflowY: 'scroll',
                   maxHeight: 'calc(100vh - 56px)',
                   minHeight: 'calc(100vh - 56px)',
-                  borderRight: ({ colors }) => `1px solid ${colors.muted}`,
+                  transition: 'border 0.2s',
+                  borderRight: ({ colors }) =>
+                    `${expanded ? 1 : 0}px solid ${colors.muted}`,
                 }}
               >
                 <Box
