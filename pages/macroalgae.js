@@ -264,7 +264,7 @@ const Index = () => {
           bottom: 0,
           width: '100%',
           maxWidth: '1920px',
-          ml: [0, 0, 0, 'calc((100vw - 1920px)/2)'],
+          left: [0, 0, 0, 'max(calc((100vw - 1920px)/2), 0px)'],
         }}
       >
         <Canvas
