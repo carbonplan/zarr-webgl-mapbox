@@ -64,7 +64,7 @@ const Index = () => {
   const [opacity, setOpacity] = useState(1)
   const [clim, setClim] = useState([0, 5000])
   const [colormapName, setColormapName] = useState('cool')
-  const [expanded, setExpanded] = useState(true)
+  const [expanded, setExpanded] = useState(false)
   const colormap = useColormap(colormapName)
   const [mode] = useColorMode()
 
