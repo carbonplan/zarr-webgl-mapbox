@@ -109,17 +109,24 @@ const Index = () => {
               }}
             >
               <Box
+                as='button'
                 onClick={() => setExpanded((prev) => !prev)}
                 sx={{
+                  fontFamily: 'inherit',
+                  fontSize: '100%',
+                  lineHeight: 1.15,
+                  color: 'text',
                   bg: 'background',
+                  m: 0,
                   pb: [1],
                   pt: ['2px'],
                   px: [2],
                   position: 'absolute',
-                  right: '-55px',
+                  right: '-53px',
                   bottom: '50px',
                   transform: 'rotate(-90deg)',
                   cursor: 'pointer',
+                  border: 'none',
                   borderRight: ({ colors }) => `1px solid ${colors.muted}`,
                   borderBottom: ({ colors }) => `1px solid ${colors.muted}`,
                   borderLeft: ({ colors }) => `1px solid ${colors.muted}`,
