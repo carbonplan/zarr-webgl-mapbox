@@ -260,6 +260,7 @@ const Index = () => {
                 letterSpacing: 'heading',
                 fontFamily: 'heading',
                 lineHeight: 'heading',
+                pointerEvents: 'none'
               }}
             >
               Mapping macroalgae
