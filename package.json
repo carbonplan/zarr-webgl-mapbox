@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@carbonplan/components": "^9.2.0",
-    "@carbonplan/theme": "^6.0.1",
+    "@carbonplan/theme": "^7.0.0-alpha.0",
     "@mapbox/tilebelt": "^1.0.2",
     "angle-normals": "^1.0.0",
     "bunny": "^1.0.1",

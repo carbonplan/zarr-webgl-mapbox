@@ -82,7 +82,7 @@ const Index = () => {
       </Container>
       <Box sx={{ position: 'absolute', top: 0, width: '100%', zIndex: 5000 }}>
         <Container>
-          <Header />
+          <Header dimmer={'none'} />
         </Container>
       </Box>
       <Container>
@@ -91,17 +91,12 @@ const Index = () => {
             <Box
               sx={{
                 position: 'absolute',
-                left: [
-                  '0px',
-                  '0px',
-                  '0px',
-                  'max(calc((100vw - 1920px)/2), 0px)',
-                ],
+                left: '0px',
                 right: [
                   'calc(3 * 100vw / 6 - 12px)',
                   'calc(5 * 100vw / 8 - 18px)',
                   'calc(9 * 100vw / 12 - 24px)',
-                  'calc(8 * 100vw / 12 - 24px)',
+                  'calc(9 * 100vw / 12 - 36px)',
                 ],
                 zIndex: 1000,
                 transition: 'transform 0.2s',
@@ -167,7 +162,7 @@ const Index = () => {
                     opacity: expanded ? 1 : 0,
                   }}
                 >
-                  <Box sx={{ mb: [4], ...sx.description }}>
+                  <Box sx={{ mb: [4, 4, 4, 5], ...sx.description }}>
                     This is an interactive web tool for mapping the potential of
                     carbon removal with macroalgae.
                   </Box>
@@ -188,7 +183,9 @@ const Index = () => {
                     setValue={setLineCost}
                     label={'Line cost'}
                   />
-                  <Box sx={{ mt: [4], ...sx.heading }}>Operating costs</Box>
+                  <Box sx={{ mt: [4, 4, 4, 5], ...sx.heading }}>
+                    Operating costs
+                  </Box>
                   <Parameter
                     min={63004}
                     max={69316}
@@ -205,7 +202,9 @@ const Index = () => {
                     setValue={setLabor}
                     label={'Labor'}
                   />
-                  <Box sx={{ mt: [4], ...sx.heading }}>Harvest costs</Box>
+                  <Box sx={{ mt: [4, 4, 4, 5], ...sx.heading }}>
+                    Harvest costs
+                  </Box>
                   <Parameter
                     min={124485}
                     max={394780}
@@ -214,7 +213,7 @@ const Index = () => {
                     setValue={setHarvestCost}
                     label={'Harvest costs'}
                   />
-                  <Box sx={{ mt: [4], ...sx.heading }}>Style</Box>
+                  <Box sx={{ mt: [4, 4, 4, 5], ...sx.heading }}>Style</Box>
                   <Parameter
                     min={0}
                     max={1}
@@ -260,7 +259,7 @@ const Index = () => {
                 letterSpacing: 'heading',
                 fontFamily: 'heading',
                 lineHeight: 'heading',
-                pointerEvents: 'none'
+                pointerEvents: 'none',
               }}
             >
               Mapping macroalgae
@@ -274,8 +273,7 @@ const Index = () => {
           top: 0,
           bottom: 0,
           width: '100%',
-          maxWidth: '1920px',
-          left: [0, 0, 0, 'max(calc((100vw - 1920px)/2), 0px)'],
+          left: 0,
         }}
       >
         <Canvas
@@ -302,6 +300,7 @@ const Index = () => {
               labor: labor,
               harvestCost: harvestCost,
               empty: mode == 'dark' ? 0.25 : 0.75,
+              target: 'cost',
             }}
             variables={[
               'Growth2',
@@ -367,7 +366,13 @@ const Index = () => {
           />
         </Canvas>
         <Dimmer
-          sx={{ position: 'absolute', right: [13], bottom: [17, 17, 15, 15] }}
+          sx={{
+            display: ['none', 'none', 'initial', 'initial'],
+            position: 'absolute',
+            color: 'primary',
+            right: [13],
+            bottom: [17, 17, 15, 15],
+          }}
         />
       </Box>
     </>
