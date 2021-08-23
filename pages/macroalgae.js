@@ -116,46 +116,53 @@ const Index = () => {
             source={
               'https://storage.googleapis.com/carbonplan-research/macroalgae/data/processed/zarr-pyramid/{z}/all_variables'
             }
-            frag={`
-              // return null color if null value or low growth
+            varyingDeclaration={`varying float cost;`}
+            varyingAssignment={`
+              // return negative value if null value or low growth
               if ((Growth2 == -9999.0) || (Growth2 < 0.2)) {
+                cost = -9999.0;
+              } else {
+                // parameters
+                float cheapDepth = 50.0;
+                float priceyDepth = 150.0;
+                float insurance = 35000.0;
+                float license = 1409.0;
+
+                // constants for forthcoming layers
+                float lineDensity = 714286.0;
+                float nharv = 2.0;
+
+                // invert depth
+                float depth = -1.0 * elevation;
+
+                // calculate depth premium
+                float depthPremium;
+                if (depth <= cheapDepth) {
+                  depthPremium = 0.0;
+                }
+                if ((depth > cheapDepth) && (depth < priceyDepth)) {
+                  depthPremium = (depth / priceyDepth) * 3.0;
+                }
+                if (depth > priceyDepth) {
+                  depthPremium = 3.0;
+                }
+
+                // calculate primary terms
+                float capital = capex + depthPremium * capex + lineCost * lineDensity;
+                float operations = opex + labor + insurance + license;
+                float harvest = harvestCost * nharv;
+
+                // combine terms
+                cost = (capital + operations + harvest) / Growth2;
+              }
+              `}
+            frag={`
+              // return null color if null value
+              if (cost == -9999.0) {
                 gl_FragColor = vec4(empty, empty, empty, opacity);
                 gl_FragColor.rgb *= gl_FragColor.a;
                 return;
               }
-
-              // parameters
-              float cheapDepth = 50.0;
-              float priceyDepth = 150.0;
-              float insurance = 35000.0;
-              float license = 1409.0;
-
-              // constants for forthcoming layers
-              float lineDensity = 714286.0;
-              float nharv = 2.0;
-
-              // invert depth
-              float depth = -1.0 * elevation;
-
-              // calculate depth premium
-              float depthPremium;
-              if (depth <= cheapDepth) {
-                depthPremium = 0.0;
-              }
-              if ((depth > cheapDepth) && (depth < priceyDepth)) {
-                depthPremium = (depth / priceyDepth) * 3.0;
-              }
-              if (depth > priceyDepth) {
-                depthPremium = 3.0;
-              }
-
-              // calculate primary terms
-              float capital = capex + depthPremium * capex + lineCost * lineDensity;
-              float operations = opex + labor + insurance + license;
-              float harvest = harvestCost * nharv;
-
-              // combine terms
-              float cost = (capital + operations + harvest) / Growth2;
 
               // transform for display
               float rescaled = (cost - clim.x)/(clim.y - clim.x);
