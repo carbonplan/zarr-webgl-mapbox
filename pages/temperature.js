@@ -83,7 +83,13 @@ const Index = () => {
           <option>cool</option>
         </Select>
         <Dimmer
-          sx={{ position: 'absolute', right: [13], bottom: [17, 17, 15, 15] }}
+          sx={{
+            display: ['none', 'none', 'initial', 'initial'],
+            position: 'absolute',
+            color: 'primary',
+            right: [13],
+            bottom: [17, 17, 15, 15],
+          }}
         />
       </Box>
     </>
