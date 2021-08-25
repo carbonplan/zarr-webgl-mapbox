@@ -12,6 +12,7 @@ const Index = () => {
   const [clim, setClim] = useState([-20, 30])
   const [colormapName, setColormapName] = useState('warm')
   const colormap = useColormap(colormapName)
+  const testColormap = useColormap('cool')
 
   return (
     <>
@@ -21,7 +22,7 @@ const Index = () => {
           style={style}
           zoom={2}
           center={[0, 0]}
-          debug={false}
+          debug={true}
           extensions={['OES_texture_float', 'OES_element_index_uint']}
         >
           <Basemap />
@@ -29,6 +30,7 @@ const Index = () => {
             maxZoom={5}
             size={128}
             colormap={colormap}
+            testColormap={testColormap}
             clim={clim}
             display={display}
             opacity={opacity}
