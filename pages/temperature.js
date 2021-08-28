@@ -32,6 +32,8 @@ const Index = () => {
             clim={clim}
             display={display}
             opacity={opacity}
+            mode={'texture'}
+            nan={-3.4e38}
             source={
               'https://carbonplan.blob.core.windows.net/carbonplan-scratch/zarr-mapbox-webgl/128/{z}'
             }

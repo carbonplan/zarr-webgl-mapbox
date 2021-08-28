@@ -293,6 +293,7 @@ const Index = () => {
             clim={clim}
             display={display}
             opacity={opacity}
+            mode={'texture'}
             uniforms={{
               capex: capex,
               lineCost: lineCost,
@@ -318,7 +319,7 @@ const Index = () => {
             }
             frag={`
               // return null color if null value or low growth
-              if ((Growth2 == -9999.0) || (Growth2 < 0.2)) {
+              if ((Growth2 == nan) || (Growth2 < 0.2)) {
                 gl_FragColor = vec4(empty, empty, empty, opacity);
                 gl_FragColor.rgb *= gl_FragColor.a;
                 return;
